@@ -50,7 +50,6 @@ RUN set -eux; \
 	apk add --update --no-cache \
 	    bash \
 	    coreutils \
-	    libc6-compat \
 	    ca-certificates \
         && \
 	rm -rf /tmp/* /var/cache/apk/*
