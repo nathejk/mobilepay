@@ -1,0 +1,29 @@
+version: '3.4'
+
+volumes:
+  api:
+
+services:
+  gw:
+    image: jrgensen/gateway
+    platform: linux/x86_64
+    environment:
+      PROXY_MAPPINGS: >
+        mobilepay:api
+    ports:
+    - 80
+
+  api:
+    build:
+      context: .
+      target: dev
+      dockerfile: docker/Dockerfile
+    environment:
+      #GO_BUILD_FLAGS: -race
+      STAN_DSN: stan://dev.nathejk.dk:4222/nathejk
+    volumes:
+    - .:/app
+    - api:/go
+    depends_on:
+    - gw
+
