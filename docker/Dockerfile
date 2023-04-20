@@ -41,18 +41,19 @@ RUN GOARCH=amd64 CGO_ENABLED=1 GOOS=linux \
 
 #
 # PROD
-FROM alpine:3.14.1 AS prod
+#FROM alpine:3.14.1 AS prod
+FROM busybox:glibc AS prod
 
 ARG CI_VERSION
 ENV SENTRY_RELEASE=$CI_VERSION
 
-RUN set -eux; \
-	apk add --update --no-cache \
-	    bash \
-	    coreutils \
-	    ca-certificates \
-        && \
-	rm -rf /tmp/* /var/cache/apk/*
+#RUN set -eux; \
+#	apk add --update --no-cache \
+#	    bash \
+#	    coreutils \
+#	    ca-certificates \
+#        && \
+#	rm -rf /tmp/* /var/cache/apk/*
 
 WORKDIR /app
 COPY --from=build /app/api /mobilepay
@@ -60,5 +61,6 @@ COPY docker/bin/init /init
 
 #HEALTHCHECK --interval=30s --timeout=15s --start-period=900s --retries=3 CMD test -f /tmp/healthy
 
-ENTRYPOINT ["/init"]
-CMD ["/mobilepay"]
+ENTRYPOINT ["/mobilepay"]
+#ENTRYPOINT ["/init"]
+#CMD ["/mobilepay"]
