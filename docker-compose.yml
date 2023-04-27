@@ -10,6 +10,7 @@ services:
     environment:
       PROXY_MAPPINGS: >
         mobilepay:api
+        sql:phpmyadmin
     ports:
     - 80
 
@@ -21,9 +22,32 @@ services:
     environment:
       #GO_BUILD_FLAGS: -race
       STAN_DSN: stan://dev.nathejk.dk:4222/nathejk
+      DB_DSN: bruger:kodeord@tcp(db:3306)/tilmelding?parseTime=true
+      REPORT_API_KEY: ABC123
     volumes:
     - .:/app
     - api:/go
     depends_on:
     - gw
+    - db
+
+  db:
+    image: mariadb:10.8
+    environment:
+      MYSQL_ROOT_PASSWORD: ib
+      MYSQL_DATABASE: tilmelding
+      MYSQL_USER: bruger
+      MYSQL_PASSWORD: kodeord
+      TZ: Europe/Copenhagen
+
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ib
+      PMA_USER: bruger
+      PMA_PASSWORD: kodeord
+    depends_on:
+    - gw
+    - db
 
