@@ -4,6 +4,13 @@ import (
 	"time"
 )
 
+type TransactionType string
+
+const (
+	TransactionTypePayment  TransactionType = "Payment"
+	TransactionTypeTransfer TransactionType = "Transfer"
+)
+
 type PaymentPoint struct {
 	ID          string `json:"id"`
 	Name        string `json:"name"`
@@ -12,28 +19,28 @@ type PaymentPoint struct {
 }
 
 type Transaction struct {
-	PaymentID            *string   `json:"paymentId,omitempty"`
-	Type                 string    `json:"type"`
-	Amount               float32   `json:"amount"`
-	Currency             string    `json:"currencyCode,omitempty"`
-	Timestamp            time.Time `json:"timestamp"`
-	Message              string    `json:"message,omitempty"`
-	MerchantReference    *string   `json:"merchantReference,omitempty"`
-	MerchantPaymentLabel *string   `json:"merchantPaymentLabel,omitempty"`
-	TransferReference    string    `json:"transferReference"`
-	TransferDate         string    `json:"transferDate"`
-	UserPhoneNumber      string    `json:"userPhoneNumber,omitempty"`
-	UserName             string    `json:"userName,omitempty"`
-	LoyaltyID            *string   `json:"loyaltyId,omitempty"`
-	MyShopNumber         string    `json:"myShopNumber,omitempty"`
-	BrandName            *string   `json:"brandName,omitempty"`
-	BrandID              *string   `json:"brandId,omitempty"`
-	LocationID           *string   `json:"locationId,omitempty"`
-	PosName              *string   `json:"posName,omitempty"`
-	BeaconID             *string   `json:"beaconId,omitempty"`
-	AgreementExternalID  *string   `json:"agreementExternalId,omitempty"`
-	AgreementID          *string   `json:"agreementId,omitempty"`
-	RefundID             *string   `json:"refundId,omitempty"`
+	PaymentID            *string         `json:"paymentId,omitempty"`
+	Type                 TransactionType `json:"type"`
+	Amount               float32         `json:"amount"`
+	Currency             string          `json:"currencyCode,omitempty"`
+	Timestamp            time.Time       `json:"timestamp"`
+	Message              string          `json:"message,omitempty"`
+	MerchantReference    *string         `json:"merchantReference,omitempty"`
+	MerchantPaymentLabel *string         `json:"merchantPaymentLabel,omitempty"`
+	TransferReference    string          `json:"transferReference"`
+	TransferDate         string          `json:"transferDate"`
+	UserPhoneNumber      string          `json:"userPhoneNumber,omitempty"`
+	UserName             string          `json:"userName,omitempty"`
+	LoyaltyID            *string         `json:"loyaltyId,omitempty"`
+	MyShopNumber         string          `json:"myShopNumber,omitempty"`
+	BrandName            *string         `json:"brandName,omitempty"`
+	BrandID              *string         `json:"brandId,omitempty"`
+	LocationID           *string         `json:"locationId,omitempty"`
+	PosName              *string         `json:"posName,omitempty"`
+	BeaconID             *string         `json:"beaconId,omitempty"`
+	AgreementExternalID  *string         `json:"agreementExternalId,omitempty"`
+	AgreementID          *string         `json:"agreementId,omitempty"`
+	RefundID             *string         `json:"refundId,omitempty"`
 }
 
 type Transfer struct {
